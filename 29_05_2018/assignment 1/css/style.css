@@ -3,13 +3,13 @@ body {
 	font-family: sans-serif;
 } 
 div {
-	margin: auto;
 	width: 500px;
+	margin: auto;
 }
 blockquote {
-	border: 3px solid white; 
+	border: 1px solid white; 
 	text-align: center;
-	margin-left: 1px;
+	margin-left: 0px;
 	padding: 20px;
 
 }
