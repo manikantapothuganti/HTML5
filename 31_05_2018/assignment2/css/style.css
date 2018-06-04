@@ -79,13 +79,8 @@ section{
 section p{
 	padding-top: 10px;
 }
-#oda 
-{
-	width: 480px;
-	height: 400px;
-}
 footer h4{
-	font-family: 'Great Vibes';
+	font-family: 'Teko', sans-serif;
 	font-size: 35px;
 	padding: 5px 5px;
 }
@@ -99,14 +94,57 @@ footer a:hover{
 footer p{
 	font-family:sans-serif;
 	float: left;
+	color: white;
 	padding: 10px 10px;
 	font-size: 20px;
 }
 
 footer{
-	border: 1px solid black;
-	background-color: white;
-	display: block;
-	height: 130px;
+	border: 1px solid white;
+	background-color: black;
+	width: 100%;
 
+}
+footer
+{
+ text-align:center;margin-top: 50px;
+ background-color:black ;
+ color:white;}
+
+footer h3
+{
+  text-transform:capitalize;
+}
+footer p{
+ color:yellow;
+}
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align:center;
+  text-decoration: none;
+
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+  border-radius:50%;
+  width:20px;
+}
+
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+  margin: 20px;
+   border-radius:50%;
+   width:20px;
+}
+.fa-youtube {
+ background: #bb0000;
+ color: white;
+ border-radius:50%;
+ width:20px;
 }
