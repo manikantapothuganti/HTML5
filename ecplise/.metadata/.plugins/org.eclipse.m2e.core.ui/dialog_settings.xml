@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+		<list key="ciManagementUrl">
+		</list>
+		<list key="ciManagementSystem">
+		</list>
+		<list key="issueManagementSystem">
+		</list>
+		<list key="issueManagementUrl">
+		</list>
+	</section>
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="/home/manikanta/workspace/26_06_2018/DataMungerStep5_Boilerplate"/>
+			<item value="/home/manikanta/workspace/26_06_2018/DataMungerStep4_Boilerplate"/>
+			<item value="/home/manikanta/workspace/25_06_2018/DataMungerStep3_Boilerplate"/>
+			<item value="/home/manikanta/workspace/15_06_2018/DataMungerStep1_Boilerplate"/>
+			<item value="/home/manikanta/workspace/14_06_2018/junit-samples"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+</section>

@@ -1,0 +1,134 @@
+package com.stackroute.datamunger.query;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+//This class contains methods to evaluate expressions
+public class Filter {
+	
+	public boolean evaluateExpression(Restriction restriction,String fieldValue,String dataType) {
+		if(restriction.getCondition().equals("="))
+			return isEqual(fieldValue, restriction.getPropertyValue(), dataType);
+		else if(restriction.getCondition().matches("!="))
+			return isNotEqual(fieldValue, restriction.getPropertyValue(), dataType);
+		else if(restriction.getCondition().equals(">"))
+			return isGreaterThan(fieldValue, restriction.getPropertyValue(), dataType);
+		else if(restriction.getCondition().equals(">="))
+			return isGreaterThanOrEqualTo(fieldValue, restriction.getPropertyValue(), dataType);
+		else if(restriction.getCondition().equals("<"))
+			return isLessThan(fieldValue, restriction.getPropertyValue(), dataType);
+		else
+			return isLessThanOrEqualTo(fieldValue, restriction.getPropertyValue(), dataType);
+		
+	}
+	
+	private String getDateFormat(String date) {
+		String format = "";
+		if(date.matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}$"))
+			format = "dd/mm/yyyy";
+		else if(date.matches("^[0-9]{4}-[0-9]{2}-[0-9]{2}$"))
+			format = "yyyy-mm-dd";
+		else if(date.matches("^[0-9]{2}-[a-z]{3}-[0-9]{2}$"))
+			format = "dd-mon-yy";
+		else if(date.matches("^[0-9]{2}-[a-z]{3}-[0-9]{4}$"))
+			format ="dd-mon-yyyy";
+		else if(date.matches("^[0-9]{2}-[a-z]{3,9}-[0-9]{2}$"))
+			format = "dd-month-yy";
+		else 
+			format ="dd-month-yyyy";
+		return format;
+	}
+
+	//Method containing implementation of equalTo operator
+	
+	private boolean isEqual(String fieldValue, String actualValue, String dataType) {
+		if(dataType.equals("java.lang.Integer")) {
+			return Integer.parseInt(fieldValue)==Integer.parseInt(actualValue);
+		} else if(dataType.equals("java.lang.Double")) {
+			return Double.parseDouble(fieldValue.toLowerCase())==Double.parseDouble(actualValue.toLowerCase());
+		} else if(dataType.equals("java.util.Date")) {
+			 SimpleDateFormat formatter = new SimpleDateFormat(getDateFormat(fieldValue));
+			 try {
+				if(formatter.parse(fieldValue).compareTo(formatter.parse(actualValue))==0)
+					return true;
+				 else
+					 return false;
+			} catch (ParseException e) {
+				e.printStackTrace();
+				return false;
+			}
+		} else if(dataType.equals("java.util.Object"))
+			return false;
+		else {
+			if(fieldValue.compareTo(actualValue)==0)
+				return true;
+			else
+				return false;
+		}
+	}
+	
+	
+	
+	private boolean isNotEqual(String fieldValue, String actualValue, String dataType) {
+		return !isEqual(fieldValue, actualValue, dataType);
+	}
+	
+	
+	
+	
+	
+	//Method containing implementation of greaterThan operator
+	private boolean isGreaterThan(String fieldValue, String actualValue, String dataType) {
+		if(dataType.equals("java.lang.Integer")) {
+			return Integer.parseInt(fieldValue)>Integer.parseInt(actualValue);
+		} else if(dataType.equals("java.lang.Double")) {
+			return Double.parseDouble(fieldValue.toLowerCase())>Double.parseDouble(actualValue.toLowerCase());
+		} else if(dataType.equals("java.util.Date")) {
+			 SimpleDateFormat formatter = new SimpleDateFormat(getDateFormat(fieldValue));
+			 try {
+				if(formatter.parse(fieldValue).compareTo(formatter.parse(actualValue))>0)
+					 return true;
+				 else
+					 return false;
+			} catch (ParseException e) {
+				e.printStackTrace();
+				return false;
+			}
+		} else if(dataType.equals("java.util.Object"))
+			return false;
+		else {
+			if(fieldValue.compareTo(actualValue)>0)
+				return true;
+			else
+				return false;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	//Method containing implementation of greaterThanOrEqualTo operator
+	private boolean isGreaterThanOrEqualTo(String fieldValue, String actualValue, String dataType) {
+		return isEqual(fieldValue, actualValue, dataType)|isGreaterThan(fieldValue, actualValue, dataType);
+	}
+	
+	
+	
+	
+	
+	//Method containing implementation of lessThan operator
+	private boolean isLessThan(String fieldValue, String actualValue, String dataType) {
+		return !isGreaterThanOrEqualTo(fieldValue, actualValue, dataType);
+	}
+	
+	
+	
+	
+	//Method containing implementation of lessThanOrEqualTo operator
+	private boolean isLessThanOrEqualTo(String fieldValue, String actualValue, String dataType) {
+		return isEqual(fieldValue, actualValue, dataType)|isLessThan(fieldValue, actualValue, dataType);
+	}
+	
+}

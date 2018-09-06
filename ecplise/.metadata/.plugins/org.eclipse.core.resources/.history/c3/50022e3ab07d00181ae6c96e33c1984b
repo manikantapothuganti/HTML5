@@ -1,0 +1,274 @@
+package com.stackroute.datamunger.query.parser;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class QueryParser {
+
+	private QueryParameter queryParameter = new QueryParameter();
+	/*
+	 * This method will parse the queryString and will return the object of
+	 * QueryParameter class
+	 */
+	public QueryParameter parseQuery(String queryString) {
+		queryParameter.setBaseQuery(getBaseQuery(queryString));
+		queryParameter.setFileName(getFileName(queryString));
+		queryParameter.setOrderByFields(getOrderByFields(queryString));
+		queryParameter.setGroupByFields(getGroupByFields(queryString));
+		queryParameter.setFields(getFields(queryString));
+		queryParameter.setAggregateFunctions(getAggregateFunctions(queryString));
+		queryParameter.setRestrictions(getRestrictions(queryString));
+		queryParameter.setLogicalOperators(getLogicalOperators(queryString));
+		
+
+		return queryParameter;
+	}
+
+	public List<String> getLogicalOperators(String queryString) {
+		if(!(queryString.contains("where"))) {
+            return null;
+        }
+        
+        String a[]= queryString.trim().toLowerCase().split("where");
+        String conditions[] = a[1].split(" ");
+        List<String> al = new ArrayList<String>();
+		for (int i=0;i<conditions.length;i++)
+		{
+           if(conditions[i].equals("and") || conditions[i].equals("or")) 
+             {
+        	     al.add(conditions[i]);
+             }
+        }
+		return al;
+		
+		
+		
+		
+		
+	}
+
+	private List<Restriction> getRestrictions(String queryString) {
+		if(!(queryString.contains("where"))) {
+			return null;
+		}
+		String str[]= queryString.trim().split("where|group by|order by");
+		String conditions[] = str[1].trim().split(" and | or ");
+		List<Restriction> restrictionList = new ArrayList<Restriction>();
+		for (String string : conditions) {
+	          String condition = "";
+	          if(string.contains(">=")) {
+	              condition = ">=";
+	          } else if(string.contains("<=")) {
+	              condition = "<=";
+	          } else if(string.contains("!=")) {
+	              condition = "!=";
+	          } else if(string.contains(">")) {
+	              condition = ">";
+	          } else if(string.contains("<")) {
+	              condition = "<";
+	          } else if(string.contains("=")) {
+	              condition = "=";
+	          }
+	          String name = string.split(condition)[0].trim();
+	          String value = string.split(condition)[1].trim().replaceAll("'", "");
+	          Restriction restrictionInstance = new Restriction(name, value, condition);
+	          restrictionList.add(restrictionInstance);
+	      }
+		return restrictionList;
+	}
+
+	private List<AggregateFunction> getAggregateFunctions(String queryString) {
+		if(queryString.contains("*")) return null;
+        List<String> aa= getFields(queryString);
+       
+        int l =aa.size();
+        String a[] = new String[l];
+        for(int i=0;i<l;i++) {
+        	a[i]= aa.get(i).trim();
+        }
+     
+        List<AggregateFunction> al = new ArrayList<AggregateFunction>();
+        for(int i=0;i<a.length;i++) 
+        {
+            if(a[i].contains("("))
+            {
+            	String aaa[] = a[i].split("\\(|\\)");
+            	AggregateFunction aggregteFunction = new AggregateFunction(aaa[1],aaa[0]);
+                al.add(aggregteFunction);
+            }
+            
+        }
+        
+        
+        return al;
+        
+	}
+
+	private List<String> getFields(String queryString) {
+		String a[]=getSplitStrings(queryString);
+		String s="";
+		for (int i=0;i<a.length;i++)
+		{
+			
+			if (a[i].equals("select"))
+			{
+				s=s.concat(" "+a[i+1]);
+			}
+		}
+		String f[]=s.trim().split(",");
+		List<String> al = new ArrayList<String>();
+        for(String o:f) {
+        	al.add(o);
+        }
+        return al;
+	}
+
+	private List<String> getGroupByFields(String queryString) {
+		if(!(queryString.contains("group by"))) {
+            return null;
+        }
+        String a[]= queryString.trim().toLowerCase().split(" group by | having | order by ");
+        String b[]=a[1].trim().toLowerCase().split(",");
+        List<String> al = new ArrayList<String>();
+        for(String s:b) {
+        	al.add(s);
+        }
+        return al;
+	}
+
+	private List<String> getOrderByFields(String queryString) {
+		if(!(queryString.contains("order by"))) {
+            return null;
+        }
+		 
+        String a[]= queryString.trim().toLowerCase().split(" order by ");
+        String b[]=a[1].trim().toLowerCase().split(",");
+        List<String> al = new ArrayList<String>();
+        for(String s:b) {
+        	al.add(s);
+        }
+        return al;
+	}
+
+	private String getFileName(String queryString) {
+		String a[]=getSplitStrings(queryString);
+		String s="";
+		for (int i=0;i<a.length;i++)
+		{
+			if (a[i].equals("from"))
+			{
+				s=s.concat(a[i+1]);
+			}
+		}
+
+		return s;
+	}
+
+	private String getBaseQuery(String queryString) {
+		String a[]=getSplitStrings(queryString);
+		String f=getFileName(queryString);
+		String s="";
+		for (int i=0;i<a.length;i++)
+		{
+			s=s.concat(" "+a[i]);
+			if (a[i].equals(f))
+			{
+				break;
+			}
+		}
+         return s.trim();
+	}
+	public String[] getSplitStrings(String queryString) {
+		String a[] = queryString.split("\\s");
+		String b[] = new String[a.length];
+		for (int i=0;i<a.length;i++)
+		{
+			b[i]=a[i].toLowerCase();
+		}
+        return b;
+	}
+	
+		/*
+		 * extract the name of the file from the query. File name can be found after the
+		 * "from" clause.
+		 */
+		
+		
+		/*
+		 * extract the order by fields from the query string. Please note that we will
+		 * need to extract the field(s) after "order by" clause in the query, if at all
+		 * the order by clause exists. For eg: select city,winner,team1,team2 from
+		 * data/ipl.csv order by city from the query mentioned above, we need to extract
+		 * "city". Please note that we can have more than one order by fields.
+		 */
+		
+		
+		/*
+		 * extract the group by fields from the query string. Please note that we will
+		 * need to extract the field(s) after "group by" clause in the query, if at all
+		 * the group by clause exists. For eg: select city,max(win_by_runs) from
+		 * data/ipl.csv group by city from the query mentioned above, we need to extract
+		 * "city". Please note that we can have more than one group by fields.
+		 */
+		
+		
+		/*
+		 * extract the selected fields from the query string. Please note that we will
+		 * need to extract the field(s) after "select" clause followed by a space from
+		 * the query string. For eg: select city,win_by_runs from data/ipl.csv from the
+		 * query mentioned above, we need to extract "city" and "win_by_runs". Please
+		 * note that we might have a field containing name "from_date" or "from_hrs".
+		 * Hence, consider this while parsing.
+		 */
+		
+		
+		
+		
+		/*
+		 * extract the conditions from the query string(if exists). for each condition,
+		 * we need to capture the following: 
+		 * 1. Name of field 
+		 * 2. condition 
+		 * 3. value
+		 * 
+		 * For eg: select city,winner,team1,team2,player_of_match from data/ipl.csv
+		 * where season >= 2008 or toss_decision != bat
+		 * 
+		 * here, for the first condition, "season>=2008" we need to capture: 
+		 * 1. Name of field: season 
+		 * 2. condition: >= 
+		 * 3. value: 2008
+		 * 
+		 * the query might contain multiple conditions separated by OR/AND operators.
+		 * Please consider this while parsing the conditions.
+		 * 
+		 */
+		
+		
+		/*
+		 * extract the logical operators(AND/OR) from the query, if at all it is
+		 * present. For eg: select city,winner,team1,team2,player_of_match from
+		 * data/ipl.csv where season >= 2008 or toss_decision != bat and city =
+		 * bangalore
+		 * 
+		 * the query mentioned above in the example should return a List of Strings
+		 * containing [or,and]
+		 */
+		
+		
+		/*
+		 * extract the aggregate functions from the query. The presence of the aggregate
+		 * functions can determined if we have either "min" or "max" or "sum" or "count"
+		 * or "avg" followed by opening braces"(" after "select" clause in the query
+		 * string. in case it is present, then we will have to extract the same. For
+		 * each aggregate functions, we need to know the following: 
+		 * 1. type of aggregate function(min/max/count/sum/avg) 
+		 * 2. field on which the aggregate function is being applied
+		 * 
+		 * Please note that more than one aggregate function can be present in a query
+		 * 
+		 * 
+		 */
+	
+	
+}

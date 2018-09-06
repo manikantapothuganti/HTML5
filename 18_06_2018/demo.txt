@@ -1,0 +1,172 @@
+class Employee{
+ float salary=40000;
+}
+
+class Programmer extends Employee{
+ int bonus=10000;
+ public static void main(String args[]){
+   Programmer p=new Programmer();
+   System.out.println("Programmer salary is:"+p.salary);
+   System.out.println("Bonus of Programmer is:"+p.bonus);
+}
+}
+
+
+Single Inheritance Example
+
+class Animal{  
+void eat(){System.out.println("eating...");}  
+}  
+class Dog extends Animal{  
+void bark(){System.out.println("barking...");}  
+}  
+class TestInheritance{  
+public static void main(String args[]){  
+Dog d=new Dog();  
+d.bark();  
+d.eat();  
+}}  
+
+output :
+barking...
+eating...
+
+Multilevel Inheritance Example
+
+class Animal{  
+void eat(){System.out.println("eating...");}  
+}  
+class Dog extends Animal{  
+void bark(){System.out.println("barking...");}  
+}  
+class BabyDog extends Dog{  
+void weep(){System.out.println("weeping...");}  
+}  
+class TestInheritance2{  
+public static void main(String args[]){  
+BabyDog d=new BabyDog();  
+d.weep();  
+d.bark();  
+d.eat();  
+}}  
+Output:
+public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+weeping...
+barking...
+eating...
+
+
+Hierarchical Inheritance Example
+
+class Animal{  
+void eat(){System.out.println("eating...");}  
+}  
+class Dog extends Animal{  
+void bark(){System.out.println("barking...");}  
+}  
+class Cat extends Animal{  
+void meow(){System.out.println("meowing...");}  
+}  
+class TestInheritance3{  
+public static void main(String args[]){  
+Cat c=new Cat();  
+c.meow();  
+c.eat();  
+//c.bark();//C.T.Error  
+}}  
+Output:
+
+meowing...
+eating...
+
+example for over loading :
+
+
+class OverloadingCalculation1{  
+  void sum(int a,long b){System.out.println(a+b);}  
+  void sum(int a,int b,int c){System.out.println(a+b+c);}  
+  
+  public static void main(String args[]){  
+  OverloadingCalculation1 obj=new OverloadingCalculation1();  
+  obj.sum(20,20);//now second int literal will be promoted to long  
+  obj.sum(20,20,20);  
+  
+  }  
+}  
+Output:40
+       60
+
+class OverloadingCalculation3{  
+  void sum(int a,long b){System.out.println("a method invoked");}  
+  void sum(long a,int b){System.out.println("b method invoked");}  
+  
+  public static void main(String args[]){  
+  OverloadingCalculation3 obj=new OverloadingCalculation3();  
+  obj.sum(20,20);//now ambiguity  
+  }  
+}  
+Output:Compile Time Error
+
+=======================================================================================================================================
+
+example of method overridding :
+
+class Bank{  
+int getRateOfInterest(){return 0;}  
+}  
+  
+class SBI extends Bank{  
+int getRateOfInterest(){return 8;}  
+}  
+  
+class ICICI extends Bank{  
+int getRateOfInterest(){return 7;}  
+}  
+class AXIS extends Bank{  
+int getRateOfInterest(){return 9;}  
+}  
+  
+class Test2{  
+public static void main(String args[]){  
+SBI s=new SBI();  
+ICICI i=new ICICI();  
+AXIS a=new AXIS();  
+System.out.println("SBI Rate of Interest: "+s.getRateOfInterest());  
+System.out.println("ICICI Rate of Interest: "+i.getRateOfInterest());  
+System.out.println("AXIS Rate of Interest: "+a.getRateOfInterest());  
+}  
+}  
+Output:
+SBI Rate of Interest: 8
+ICICI Rate of Interest: 7
+AXIS Rate of Interest: 9
+
+
+=======================================================================================================================================
+
+//save as Student.java  
+package com.javatpoint;  
+public class Student{  
+private String name;  
+   
+public String getName(){  
+return name;  
+}  
+public void setName(String name){  
+this.name=name  
+}  
+}  
+//save as Test.java  
+package com.javatpoint;  
+class Test{  
+public static void main(String[] args){  
+Student s=new Student();  
+s.setName("vijay");  
+System.out.println(s.getName());  
+}  
+}  
+
+Output: vijay

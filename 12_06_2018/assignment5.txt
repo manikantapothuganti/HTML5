@@ -1,0 +1,445 @@
+1) Write a JavaScript program to display the current day and time in the following format mm/dd/yyyy
+
+
+var today = new Date();
+var dd = today.getDate();
+
+var mm = today.getMonth()+1; 
+var yyyy = today.getFullYear();
+if(dd<10) 
+{
+    dd='0'+dd;
+} 
+
+if(mm<10) 
+{
+    mm='0'+mm;
+} 
+today = mm+'/'+dd+'/'+yyyy;
+console.log(today);
+
+Output:
+
+06/11/2018
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+2) Write a JavaScript conditional statement to find the largest of five numbers?
+
+function largest(a,b,c,d,e,f){
+	if (a>b && a>c && a>d && a>f)
+	{
+	    console.log(a);
+	}
+	else if (b>a && b>c && b>d && b>f)
+	{
+	    console.log(b);
+	}
+	else if (c>a && c>b && c>d && c>f)
+	{
+	    console.log(c);
+	}
+	else if (d>a && d>c && d>b && d>f)
+	{
+	    console.log(d);
+	}
+	else
+	{
+	    console.log(f);
+	}
+}
+
+console.log(largest(1,22,54,16,9));
+
+Output:
+54
+
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+3) Write a JavaScript program which accept a number as input and insert dashes (-) between each two even numbers. For example if you accept 025468 the output should be 0-254-6-8?
+
+
+function numEven(num){
+str = num.toString();
+result = [str[0]];
+  
+for(let x=1; x<str.length; x++)
+  {
+    if((str[x-1]%2 === 0)&&(str[x]%2 === 0))
+     {
+      result.push('-', str[x]);
+     }
+    else
+     {
+      result.push(str[x]);
+     }
+  }
+console.log(result.join(''));
+}
+
+ numEven(1224267768)
+
+Output:
+
+ 12-2-4-2-6776-8
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+4) Write a JavaScript program to sort strings items of an array in both alphabetically ascending and descending order.
+
+
+var names=["chris","hensworth","evans","mark","syam"];
+names.sort();
+console.log(names);
+names.reverse();
+console.log(names);
+
+Output:
+
+["chris", "evans", "hensworth", "mark", "syam"]
+["syam", "mark", "hensworth", "evans", "chris"]
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+5) Write a JavaScript program to remove duplicate items from an array?
+
+function removeDuplicates(num) {
+  var x,
+      len=num.length,
+      out=[],
+      obj={};
+ 
+  for (x=0; x<len; x++) {
+    obj[num[x]]=0;
+  }
+  for (x in obj) {
+    out.push(x);
+  }
+  return out;
+}
+var Mynum = [1, 2, 2, 4, 5, 4, 7, 8, 7, 3, 6];
+result = removeDuplicates(Mynum);
+console.log(Mynum);
+console.log(result);
+ 
+ Output:
+
+ [1, 2, 2, 4, 5, 4, 7, 8, 7, 3, 6]
+["1", "2", "3", "4", "5", "6", "7", "8"]
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+6) Write a JavaScript function to find the difference of two arrays?
+
+
+function differenceOf2Arrays (array1, array2) {
+var temp = [];
+
+for (var i in array1) {
+if(array2.indexOf(array1[i]) === -1) temp.push(array1[i]);
+}
+for(i in array2) {
+if(array1.indexOf(array2[i]) === -1) temp.push(array2[i]);
+}
+return temp.sort(function(a,b) {return a-b});
+}
+
+console.log(differenceOf2Arrays([1, 2, 3], [100, 2, 1, 10]));
+Output:
+
+[3,10,100]
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+7) Write a JavaScript function to sort the following array of objects by title value?
+
+
+var library = [ 
+   { author: 'Bill Gates', title: 'The Road Ahead', libraryID: 1254},
+   { author: 'Steve Jobs', title: 'Walter Isaacson', libraryID: 4264},
+   { author: 'Suzanne Collins', title: 'Mockingjay: The Final Book of The Hunger Games', libraryID: 3245}
+   ];
+
+function compare_to_sort(x,y) 
+ {
+  if (x.title < y.title)
+    return -1;
+  if (x.title > y.title)
+    return 1;
+  return 0;
+ }
+
+console.log(library.sort(compare_to_sort));
+
+[{"author":"Suzanne Collins","title":"Mockingjay: The Final Book of The Hunger Games","libraryID":3245},
+{"author":"Bill Gates","title":"The Road Ahead","libraryID":1254},
+{"author":"Steve Jobs","title":"Walter Isaacson","libraryID":4264}]
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+8) 8 Write a pattern that matches e-mail addresses?
+a.Uppercase (A-Z) and lowercase (a-z) English letters.
+b.Digits (0-9).
+c.Characters ! # $ % & ' * + - / = ? ^ _ ` { | } ~
+d.Character . ( period, dot or fullstop) provided that it   is not the first or last character and it will not come   one after the other.
+
+
+function valid_email(str)
+{
+	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+	if(mailformat.test(str))
+	{  
+	console.log("Valid email address!");  
+	}  
+	else  
+	{  
+	console.log("You have entered an invalid email address!");  
+	}
+}
+
+
+
+
+
+
+Input/Output:
+valid_email("manioverrules94@gmail.com");
+ Valid email address!
+
+valid_email("bleh.bleh@hmjd");
+ You have entered an invalid email address!
+
+ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+ 9) Write a JavaScript program to list the properties of a JavaScript object?
+
+
+ 	var student = { 
+	name : "David Rayy", 
+	sclass : "VI", 
+	rollno : 12 };
+
+console.log(Object.keys(student));
+
+ Output: 
+
+ name,sclass,rollno
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+10)
+
+var students = [['David', 80], ['Vinoth', 77], ['Divya', 88], ['Ishitha', 95], ['Thomas', 68]];
+
+var Avgmarks = 0;
+
+for (var i=0; i < students.length; i++) {
+        Avgmarks += students[i][1];
+        var avg = (Avgmarks/students.length);
+}
+
+console.log("Average grade: " + (Avgmarks)/students.length);
+
+        if (avg < 60){
+          console.log("Grade : F");      
+          } 
+        else if (avg < 70) {
+                console.log("Grade : D"); 
+                  } 
+        else if (avg < 80) 
+             {
+                console.log("Grade : C"); 
+        } else if (avg < 90) {
+                console.log("Grade : B"); 
+        } else if (avg < 100) {
+                console.log("Grade : A"); 
+}
+
+Output:
+Average grade: 81.6
+Grade: B
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+11) Write a JavaScript function that returns a passed string with letters in alphabetical order?
+
+	function alphabet_order(str){
+		return str.split('').sort().join('');
+  	}
+	
+	console.log(alphabet_order("stackroute"));
+	console.log(alphabet_order("boeing"));
+
+Output:
+
+acekorsttu
+begion
+
+
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+12)
+
+	function count(strings,letter){
+		var count = 0;
+		var pos = strings.indexOf(letter);
+
+		while (pos !== -1) {
+ 			count++;
+ 			pos = strings.indexOf(letter, pos + 1);
+		}
+			console.log(count);
+	}
+	
+	count("mani","i");
+
+Output:
+ 3
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+13) Flatten the following object:var myObj = [5, [22], [[14]], [[4]],[5,6]].
+
+ans. 
+	function flatten(array1){
+	array1 = array1.toString().split(',').map(Number); 
+	return array1;
+	}
+	
+
+	var arr = [5, [22], [[14]], [[4]],[5,6]];
+	
+	console.log(flatten(arr));
+
+Output:
+[5, 22, 14, 4, 5, 6]
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+14)
+
+Exercise 1: Display all objects with occupation as 'Programmer'
+
+var myObj =
+[{'name':'Saurabh', 'age': 30, 'occupation': "Team Leader"},
+{'name':'Anupriya', 'age': 32, 'occupation': "Team Leader"},
+{'name':'Kalyani', 'age': 25, 'occupation': "Programmer"},
+{'name':'Damodaran', 'age': 27, 'occupation': "Programmer"},
+{'name':'Krishnakath', 'age': 22, 'occupation': "Programmer"},
+]
+
+for (var x of myObj)
+{
+ if(x['occupation']==['Programmer'])
+ {console.log(x)}
+}
+-----------------------------------------------
+
+Exercise 2: Sort the object basis the age key in the descending order
+
+
+myObj.sort(function(a,b){ return b.age-a.age});
+console.log(myObj);
+
+-----------------------------------------
+
+Exercise 3: Recreate the above array of objects into the following object of objects :{ 'Team Leader' : [{'name':_____________, 'age':__________},{}],
+'<anotheroccupation>': [{'name':______________, 'age':________},{}]}
+
+
+
+var newObj={}
+for (var z of myObj){
+ 	newObj[z['occupation']]=[];
+}
+for (var z of myObj){
+ 	newObj[z['occupation']].push(z);
+}
+for (var k in newObj){
+ 	for (var l of newObj[k]){
+   		delete l['occupation']
+ 	}
+}
+console.log(newObj)
+
+-------------------------------------------
+
+Exercise 4: Use the map function to create a new array containing only names present in myObj.
+
+
+function getName(item, index) {
+   var fullname = item.name;
+   return fullname;
+}
+console.log(myObj.map(getName))
+
+-----------------------------------------
+
+
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+15) Convert the following JSON string to an object and access the value of the json property.
+
+
+var jsonStr = '{"mike":"Book","jason":"sweater","chels":"iPad"}';
+var obj = JSON.parse(jsonStr);
+console.log(obj.jason);
+
+Output:
+sweater
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+16)
+Consider this object:
+
+var obj = {
+"One":"1",
+"Two":"2",
+"Three":"3",
+"Four":"4"
+}
+Convert it into JavaScript array like:
+["1","2","3","4"]
+:::
+
+var obj = {
+"One":"1",
+"Two":"2",
+"Three":"3",
+"Four":"4"
+}
+
+
+
+console.log(Object.values(obj));
+Output:
+["1","2","3","4"]
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
